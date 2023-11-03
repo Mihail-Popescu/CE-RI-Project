@@ -19,11 +19,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from hello_world.core import views as core_views
+from hello_world.core.views import ProductCreateView, ProductUpdateView, ProductDeleteView
 
 urlpatterns = [
     path("", core_views.index),
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
+    path('admin/products/add/', ProductCreateView.as_view(), name='product-add'),
+    path('admin/products/<int:pk>/edit/', ProductUpdateView.as_view(), name='product-edit'),
+    path('admin/products/<int:pk>/delete/', ProductDeleteView.as_view(), name='product-delete'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
