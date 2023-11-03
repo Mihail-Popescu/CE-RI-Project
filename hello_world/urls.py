@@ -23,12 +23,13 @@ from hello_world.core.views import ProductCreateView, ProductUpdateView, Product
 
 urlpatterns = [
     path("", core_views.index),
-    path("admin/", admin.site.urls),
-    path("__reload__/", include("django_browser_reload.urls")),
     path('admin/products/add/', ProductCreateView.as_view(), name='product-add'),
     path('admin/products/<int:pk>/edit/', ProductUpdateView.as_view(), name='product-edit'),
     path('admin/products/<int:pk>/delete/', ProductDeleteView.as_view(), name='product-delete'),
+    path("admin/", admin.site.urls),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

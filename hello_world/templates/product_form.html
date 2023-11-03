@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add/Edit Product</title>
+</head>
+<body>
+    <h2>Add/Edit Product</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Save</button>
+    </form>
+
+    <a href="{{ request.META.HTTP_REFERER }}">Cancel</a>
+</body>
+</html>
