@@ -19,10 +19,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from hello_world.core import views as core_views
-from hello_world.core.views import ProductCreateView, ProductUpdateView, ProductDeleteView
+from hello_world.core.views import ProductCreateView, ProductUpdateView, ProductDeleteView, ProductListView
 
 urlpatterns = [
     path("", core_views.index),
+    path('admin/products/', ProductListView.as_view(), name='product-list'),
     path('admin/products/add/', ProductCreateView.as_view(), name='product-add'),
     path('admin/products/<int:pk>/edit/', ProductUpdateView.as_view(), name='product-edit'),
     path('admin/products/<int:pk>/delete/', ProductDeleteView.as_view(), name='product-delete'),

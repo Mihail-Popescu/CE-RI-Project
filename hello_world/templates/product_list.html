@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+</head>
+<body>
+    <h2>Product List</h2>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.nume }} - {{ product.pret }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
