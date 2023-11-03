@@ -2,13 +2,67 @@
 <html>
 <head>
     <title>Product List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #007bff;
+            border-radius: 3px;
+            color: #007bff;
+            margin-left: 10px;
+        }
+
+        a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        a.back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <h2>Product List</h2>
     <ul>
         {% for product in products %}
-            <li>{{ product.nume }} - {{ product.pret }}</li>
+            <li>
+                <span>{{ product.nume }} - {{ product.pret }}</span>
+                <a href="{% url 'product-edit' product.pk %}">Edit</a>
+                <a href="{% url 'product-delete' product.pk %}">Delete</a>
+            </li>
         {% endfor %}
     </ul>
+
+    <a class="back" href="/admin/">Back to Admin Page</a>
 </body>
 </html>

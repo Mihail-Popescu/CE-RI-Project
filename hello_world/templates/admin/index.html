@@ -1,0 +1,8 @@
+{% extends "admin/index.html" %}
+
+{% block content %}
+    {{ block.super }}
+    <a href="{% url 'product-list' %}">Products</a>
+    <span style="margin: 0 10px;">&nbsp;</span>
+    <a href="{% url 'product-add' %}">Add Product</a>
+{% endblock %}

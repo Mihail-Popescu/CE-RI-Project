@@ -2,10 +2,53 @@
 <html>
 <head>
     <title>Confirm Deletion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        button[type="submit"] {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #c82333;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <h2>Confirm Deletion</h2>
-    <p>Are you sure you want to delete "{{ object.name }}"?</p>
+    <p>Are you sure you want to delete the product?</p>
     <form method="post">
         {% csrf_token %}
         <button type="submit">Confirm Delete</button>
