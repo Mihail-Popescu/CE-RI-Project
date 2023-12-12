@@ -18,8 +18,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from hello_world.core import views as core_views
-from hello_world.core.views import ProductCreateView, ProductUpdateView, ProductDeleteView, ProductListView,SignUpView, category_products, search_products, all_products
+from proiect.core import views as core_views
+from proiect.core.views import ProductCreateView, ProductUpdateView, ProductDeleteView, ProductListView,SignUpView, category_products, search_products, all_products
 
 from django.contrib.auth import views as auth_views
 
