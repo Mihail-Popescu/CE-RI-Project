@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load django_browser_reload %}
+{% load static %}
+
+{% block title %}Company A - Favorites{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'favorites.css' %}">
+    <h1>Favorite Products</h1>
+    <div class="favorite-products">
+        {% for product in user_favorites %}
+            <div class="product">
+                <h2>{{ product.nume }}</h2>
+                <p>{{ product.pret }} Lei</p>
+                <button class="remove-favorite-button" onclick="removeFromFavorites('{{ product.nume }}')">Remove from Favorites</button>
+            </div>
+        {% endfor %}
+    </div>
+    <a href="{% url 'index' %}">
+        <button class="back-button">Back</button>
+    </a>
+    
+    <script>
+            function removeFromFavorites(productName) {
+        fetch(`/remove_from_favorites/${productName}/`)
+            .then(response => {
+                location.reload();
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    </script>
+
+{% endblock %}

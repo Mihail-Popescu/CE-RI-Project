@@ -19,16 +19,29 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from hello_world.core import views as core_views
-from hello_world.core.views import ProductCreateView, ProductUpdateView, ProductDeleteView, ProductListView
+from hello_world.core.views import ProductCreateView, ProductUpdateView, ProductDeleteView, ProductListView,SignUpView, category_products, search_products, all_products
+
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path("", core_views.index),
+    path('', core_views.index, name='index'),
     path('admin/products/', ProductListView.as_view(), name='product-list'),
     path('admin/products/add/', ProductCreateView.as_view(), name='product-add'),
     path('admin/products/<int:pk>/edit/', ProductUpdateView.as_view(), name='product-edit'),
     path('admin/products/<int:pk>/delete/', ProductDeleteView.as_view(), name='product-delete'),
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('signup/', SignUpView.as_view(), name='signup'),
+    path("category/<str:category>/", core_views.category_products, name="category_products"),
+    path("search/", core_views.search_products, name="search_products"),
+    path('all_products/', core_views.all_products, name='all_products'),
+    path('add_to_favorites/<str:product_name>/', core_views.add_to_favorites, name='add_to_favorites'),
+    path('remove_from_favorites/<str:product_name>/', core_views.remove_from_favorites, name='remove_from_favorites'),
+    path('favorites/', core_views.favorites, name='favorites'),
+    path('make-paypal-payment/', core_views.make_paypal_payment, name='make_paypal_payment'),
+    path('payment/', core_views.show_payment_page, name='show_payment_page'),
 ]
 
 if settings.DEBUG:

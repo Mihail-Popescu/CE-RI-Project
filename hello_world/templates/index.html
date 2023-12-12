@@ -1,26 +1,97 @@
+{% extends 'base.html' %}
 {% load django_browser_reload %}
 {% load static %}
+{% block title %}Company A - Home{% endblock %}
 
-<!doctype html>
-<html lang="en">
-
-<head>
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{% static 'main.css' %}">
-</head>
+{% block content %}
 
 <body>
     <div class="App">
-        <header class="App-header">
-            <img src="{% static 'Octocat.png' %}" class="App-logo" alt="logo" />
-            <p>
-                GitHub Codespaces <span class="heart">♥️</span> Django
-            </p>
-            <p class="small">
-                Edit <code>hello_world/templates/index.html</code> and see changes live wow!
-            </p>
-        </header>
+        <div class="container">
+            <div class="categories">
+                <div class="dropdown">
+                    <button class="dropbtn">Categories</button>
+                    <div class="dropdown-content">
+                        {% for category in categories %}
+                        <a href="{% url 'category_products' category %}">{{ category }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="search">
+                <form action="{% url 'search_products' %}" method="GET">
+                    <input type="text" name="search_query" placeholder="Search...">
+                    <button type="submit">Search</button>
+                </form>
+                <button onclick="clearFilters()">Clear Filters</button>
+            </div>
+            <div class="product-list">
+                {% include 'all_products.html' %}
+            </div>
+        </div>
     </div>
-</body>
 
-</html>
+    <script> // Script pentru categorii si search
+        function loadAllProducts() {
+            fetch(`/all_products/`)
+                .then(response => response.text())
+                .then(data => {
+                    document.querySelector('.product-list').innerHTML = data;
+                });
+        }
+
+        function loadCategoryProducts(category) {
+            fetch(`/category/${category}/`)
+                .then(response => response.text())
+                .then(data => {
+                    document.querySelector('.product-list').innerHTML = data;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            loadAllProducts();
+
+            document.querySelectorAll('.categories a').forEach(categoryLink => {
+                categoryLink.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    loadCategoryProducts(this.textContent.trim());
+                });
+            });
+
+            document.querySelector('form[action="{% url "search_products" %}"]').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const formData = new FormData(this);
+                const query = formData.get('search_query');
+                fetch(`/search/?search_query=${query}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        document.querySelector('.product-list').innerHTML = data;
+                    });
+            });
+        });
+
+        function clearFilters() {
+            loadAllProducts();
+        }
+    </script>
+
+    <script> // Script pentru favorite
+
+        function addToFavorites(productName) {
+            fetch(`/add_to_favorites/${productName}/`)
+                .then(response => {
+                    location.reload();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function removeFromFavorites(productName) {
+            fetch(`/remove_from_favorites/${productName}/`)
+                .then(response => {
+                    location.reload();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+{% endblock %}

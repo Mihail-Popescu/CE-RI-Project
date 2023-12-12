@@ -120,7 +120,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -139,3 +138,11 @@ MEDIA_ROOT = BASE_DIR / "hello_world" / "media"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+LOGIN_REDIRECT_URL = 'index' # redirectionare dupa logare
+
+PAYPAL_MODE = 'sandbox'
+PAYPAL_CLIENT_ID = 'AbX962e7n7ZX240Yvz9AeaIfEMueR2jdjmw9R3xCWY2nWYIiDyAJadx6RiDkoVseFZBaxwh87LYKHz2J'
+PAYPAL_CLIENT_SECRET = 'EG9bhsCw9V4ZkRJpRAD6ArTka4KT2YUibYPWBa6hDL523tE-zb3m-QLb1YYXHh55mRYJ9fG97KX9mDm-'
+

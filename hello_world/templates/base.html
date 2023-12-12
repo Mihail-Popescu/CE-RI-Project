@@ -1,0 +1,41 @@
+{% load django_browser_reload %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-left">
+                <h1 class="header-content">Company A</h1>
+            </div>
+            <div class="header-right">
+                {% if user.is_authenticated %}
+                <a href="{% url 'favorites' %}" class="login-button">Favorites</a>
+                {% endif %}
+                {% if user.is_authenticated %}
+                <span>Welcome, {{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="login-button">Logout</a>
+                {% else %}
+                <a href="{% url 'login' %}" class="login-button">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="footer">
+        <div class="container">
+            <p>Copyright &copy; Company A</p>
+        </div>
+    </footer>
+</body>

@@ -1,0 +1,27 @@
+{% load django_browser_reload %}
+{% load static %}
+
+{% for product in products %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<div class="product">
+    <h2>{{ product.nume }}</h2>
+    <p>{{ product.descriere }}</p>
+    <p>Specificatii: {{ product.specificatii }}</p>
+    <p>{{ product.pret }} Lei</p>
+    <div class="favorite-button">
+        {% if user.is_authenticated %}
+        {% if product in user.favorite_products.all %}
+        <button class="remove-favorite-button" onclick="removeFromFavorites('{{ product.nume }}')">Remove from
+            Favorites</button>
+        {% else %}
+        <button class="add-favorite-button" onclick="addToFavorites('{{ product.nume }}')">Add to Favorites</button>
+        {% endif %}
+        {% else %}
+        <a href="{% url 'login' %}">Login to add to Favorites</a>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}

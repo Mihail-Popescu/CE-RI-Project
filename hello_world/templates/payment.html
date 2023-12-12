@@ -1,0 +1,48 @@
+{% load django_browser_reload %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plata PayPal</title>
+    <link rel="stylesheet" href="{% static 'payment.css' %}">
+</head>
+<body>
+    <h1>Plata cu PayPal</h1>
+    <form id="paypal-form" action="{% url 'make_paypal_payment' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Plătește cu PayPal">
+    </form>
+
+    <div id="success-message" style="display: none;">
+        <p style="color: green;">Success, continue to your payment.</p>
+    </div>
+
+    <div id="error-message" style="display: none;">
+        <p style="color: red;">Failed, contact support.</p>
+    </div>
+    <script>
+        document.getElementById('paypal-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('success-message').style.display = 'block';
+                    setTimeout(function() {
+                        window.location.href = data.success_url;
+                    }, 2000);
+                } else {
+                    document.getElementById('error-message').style.display = 'block';
+                    console.error('Error:', data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
