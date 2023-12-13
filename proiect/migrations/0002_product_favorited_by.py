@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("hello_world", "0001_initial"),
+        ("proiect", "0001_initial"),
     ]
 
     operations = [
