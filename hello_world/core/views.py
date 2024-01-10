@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
-from .models import Product
+from hello_world.core.models import Product, Order
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from decimal import Decimal
+from django.shortcuts import redirect
 
 def index(request):
     categories = Product.objects.values_list('categorie', flat=True).distinct()
@@ -33,6 +35,67 @@ def remove_from_favorites(request, product_name):
     user = request.user
     product.favorited_by.remove(user)
     return JsonResponse({'message': 'Product removed from favorites'})
+
+#cart
+def cart(request):
+    if request.user.is_authenticated:
+        user_cart = Product.objects.filter(carted_byy=request.user)
+        total_price = Decimal('0') 
+        for product in user_cart:
+            total_price += product.pret
+        return render(request, 'cart.html', {'user_cart': user_cart, 'total_price': total_price})
+    else:
+        return render(request, 'login.html')
+
+#checkout
+    
+def checkout(request):
+    if request.user.is_authenticated:
+        user_cart = Product.objects.filter(carted_byy=request.user)
+        total_price = Decimal('0') 
+        for product in user_cart:
+            total_price += product.pret    
+    return render(request, 'checkout.html', {'user_cart': user_cart, 'total_price': total_price})   
+
+def process_order(request):
+    if request.method == 'POST':
+        address = request.POST.get('address')
+        
+        if request.user.is_authenticated:
+            user_cart = Product.objects.filter(carted_byy=request.user)
+            total_price = Decimal('0') 
+            products = list(user_cart)
+            for product in user_cart:
+                total_price += product.pret
+            
+            new_order = Order.objects.create(
+                user=request.user,
+                address=address,
+                total_price=total_price,
+            )
+            new_order.products.add(*products)
+
+            return redirect('orders')
+        else:
+            return render(request, 'login.html')
+
+def orders(request):
+    user_orders = Order.objects.filter(user=request.user)
+    return render(request, 'orders.html', {'user_orders': user_orders})
+
+@login_required
+def add_to_cart(request, product_name):
+    product = Product.objects.get(nume=product_name)
+    user = request.user
+    product.carted_byy.add(user)
+    return JsonResponse({'message': 'Product added to cart'})
+
+@login_required
+def remove_from_cart(request, product_name):
+    product = Product.objects.get(nume=product_name)
+    user = request.user
+    product.carted_byy.remove(user)
+    return JsonResponse({'message': 'Product removed from cart'})
 
 # search/categorii
 def category_products(request, category):
@@ -80,9 +143,6 @@ class SignUpView(generic.CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
-
-
-
 
 
 #paypal
@@ -139,7 +199,7 @@ def make_paypal_payment(request):
         ]
     },
     "amount": {
-        "total": "70.00",
+        "total": "60.00",
         "currency": "USD"
     },
     "description": "Payment description for multiple items"

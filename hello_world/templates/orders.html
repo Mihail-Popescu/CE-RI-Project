@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Orders{% endblock %}
+
+{% load django_browser_reload %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'favorites.css' %}">
+    <h1>Your Orders</h1>
+    {% if user_orders %}
+        <ul>
+            {% for order in user_orders %}
+                <li>
+                    Order ID: {{ order.id }} <br>
+                    Address: {{ order.address }} <br>
+                    Total Price: {{ order.total_price }} Lei <br>
+                    Products:
+                    <ul>
+                        {% for product in order.products.all %}
+                            <li>{{ product.nume }} - {{ product.pret }} Lei</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No orders yet.</p>
+    {% endif %}
+    <a href="{% url 'index' %}">
+        <button class="back-button">Back</button>
+    </a>
+{% endblock %}

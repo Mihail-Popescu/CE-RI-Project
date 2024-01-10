@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+    <h1>Checkout</h1>
+    <form method="post" action="{% url 'process_order' %}">
+        {% csrf_token %}
+        <label for="address">Delivery address:</label>
+        <input type="text" id="address" name="address" required>
+        <button type="submit">Send Order</button>
+        <a href="{% url 'index' %}"><button type="submit">Cancel Order</button></a>
+    </form>
+    <p>Total Price: {{ total_price }} Lei</p>
+{% endblock %}

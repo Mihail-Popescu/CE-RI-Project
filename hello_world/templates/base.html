@@ -19,6 +19,8 @@
             <div class="header-right">
                 {% if user.is_authenticated %}
                 <a href="{% url 'favorites' %}" class="login-button">Favorites</a>
+                <a href="{% url 'cart' %}" class="login-button">Cart</a>
+                <a href="{% url 'orders' %}" class="login-button">Orders</a>
                 {% endif %}
                 {% if user.is_authenticated %}
                 <span>Welcome, {{ user.username }}</span>

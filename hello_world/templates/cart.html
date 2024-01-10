@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load django_browser_reload %}
+{% load static %}
+
+{% block title %}Company A - Cart{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'favorites.css' %}">
+    <h1>Cart</h1>
+    <div class="favorite-products">
+        {% for product in user_cart %}
+            <div class="product">
+                <h2>{{ product.nume }}</h2>
+                <p>{{ product.pret }} Lei</p>
+                <button class="remove-favorite-button" onclick="removeFromCart('{{ product.nume }}')">Remove from Cart</button>
+            </div>
+        {% endfor %}
+    </div>
+    <p>Total Price: {{ total_price }} Lei</p>
+    <a href="{% url 'index' %}">
+        <button class="back-button">Back</button>
+    </a>
+
+    <a href="{% url 'checkout' %}">
+        <button class="back-button">Checkout</button>
+    </a>
+    
+    <script>
+        function removeFromCart(productName) {
+            fetch(`/remove_from_cart/${productName}/`)
+                .then(response => {
+                    location.reload();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+{% endblock %}

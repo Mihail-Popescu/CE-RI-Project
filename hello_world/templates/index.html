@@ -92,6 +92,22 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
+
+        function addToCart(productName) {
+            fetch(`/add_to_cart/${productName}/`)
+                .then(response => {
+                    location.reload();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function removeFromCart(productName) {
+            fetch(`/remove_from_cart/${productName}/`)
+                .then(response => {
+                    location.reload();
+                })
+                .catch(error => console.error('Error:', error));
+        }
     </script>
 
 {% endblock %}

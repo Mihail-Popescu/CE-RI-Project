@@ -23,5 +23,17 @@
         <a href="{% url 'login' %}">Login to add to Favorites</a>
         {% endif %}
     </div>
+    <div class="favorite-button">
+        {% if user.is_authenticated %}
+        {% if product in user.cartt_products.all %}
+        <button class="remove-favorite-button" onclick="removeFromCart('{{ product.nume }}')">Remove from
+            Cart</button>
+        {% else %}
+        <button class="add-favorite-button" onclick="addToCart('{{ product.nume }}')">Add to Cart</button>
+        {% endif %}
+        {% else %}
+        <a href="{% url 'login' %}">Login to add to Cart</a>
+        {% endif %}
+    </div>
 </div>
 {% endfor %}
