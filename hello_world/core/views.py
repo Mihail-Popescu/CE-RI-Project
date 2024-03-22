@@ -75,6 +75,9 @@ def process_order(request):
             )
             new_order.products.add(*products)
 
+            for product in user_cart:
+                product.carted_byy.remove(request.user)
+
             return redirect('orders')
         else:
             return render(request, 'login.html')

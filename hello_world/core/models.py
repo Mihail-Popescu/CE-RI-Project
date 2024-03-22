@@ -13,6 +13,11 @@ class Product(models.Model):
     favorited_by = models.ManyToManyField(User, related_name='favorite_products', blank=True)
     carted_by = models.ManyToManyField(User, related_name='cart_products', blank=True)
     carted_byy = models.ManyToManyField(User, related_name='cartt_products', blank=True)
+    document = models.FileField(upload_to='product_documents/', null=True, blank=True)
+
+    def get_document_name(self):
+        if self.document:
+            return self.document.name.split('/')[-1]
     class Meta:
         app_label = 'hello_world'
 

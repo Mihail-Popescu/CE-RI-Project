@@ -10,6 +10,9 @@
     <h2>{{ product.nume }}</h2>
     <p>{{ product.descriere }}</p>
     <p>Specificatii: {{ product.specificatii }}</p>
+    {% if product.document %}
+    <a href="{{ product.document.url }}" target="_blank">{{ product.get_document_name }}</a>
+    {% endif %}
     <p>{{ product.pret }} Lei</p>
     <div class="favorite-button">
         {% if user.is_authenticated %}
