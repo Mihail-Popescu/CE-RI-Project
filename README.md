@@ -1,18 +1,22 @@
-# GitHub Codespaces ♥️ Django
+## About
+This project was developed as part of the "**Comerț Electronic**" (E-commerce) and "**Regăsirea Informației**" (Information Retrieval) courses. It is a small website simulating an online shop selling products, with the main goal of learning more about backend development and working in a new environment. Additionally, the project includes PayPal integration to enable payments.
 
-Welcome to your shiny new Codespace running Django! We've got everything fired up and running for you to explore Django.
+## Requirements
+To run this project, you need:
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+- **Visual Studio Code**
+- **Python and required dependencies** (install them using the commands below):
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
-To collect static files:
-
-```python
-python manage.py collectstatic
+```sh
+pip install django
+pip install django-browser-reload
+pip install paypalrestsdk
+python manage.py migrate
 ```
 
-To run this application:
+## Demo
 
-```python
-python manage.py runserver
-```
+![AppGiff](https://github.com/user-attachments/assets/b458f724-9078-4e6d-9bfa-f7cba65db8d3)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f91a0de0-f448-4052-842e-89a842991881" alt="AppGiff2">
+</p>
