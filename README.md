@@ -5,18 +5,21 @@ This project was developed as part of the "**Comerț Electronic**" (E-commerce) 
 To run this project, you need:
 
 - **Visual Studio Code**
-- **Python and required dependencies** (install them using the commands below):
+- **Python**
+- **Dependencies** (install them using the command below):
 
 ```sh
-pip install django
-pip install django-browser-reload
-pip install paypalrestsdk
-python manage.py migrate
+pip install -r requirements.txt
 ```
 
 ## Demo
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/b458f724-9078-4e6d-9bfa-f7cba65db8d3" alt="AppGiff">
+  <p>Example of the web app</p>
+</div>
 
-![AppGiff](https://github.com/user-attachments/assets/b458f724-9078-4e6d-9bfa-f7cba65db8d3)
-<p align="center">
+
+<div align="center">
   <img src="https://github.com/user-attachments/assets/f91a0de0-f448-4052-842e-89a842991881" alt="AppGiff2">
-</p>
+  <p>Example of paypal payment</p>
+</div>
