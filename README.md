@@ -1,4 +1,4 @@
-## About
+## Overview
 This project was developed as part of the "**Comerț Electronic**" (E-commerce) and "**Regăsirea Informației**" (Information Retrieval) courses. It is a small website simulating an online shop selling products, with the main goal of learning more about backend development and working in a new environment. Additionally, the project includes PayPal integration to enable payments.
 
 ## Requirements
